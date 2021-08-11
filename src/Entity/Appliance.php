@@ -27,6 +27,11 @@ class Appliance
      */
     private $status;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Office::class, inversedBy="appliances")
+     */
+    private $office;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,18 @@ class Appliance
     public function setStatus(bool $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getOffice(): ?Office
+    {
+        return $this->office;
+    }
+
+    public function setOffice(?Office $office): self
+    {
+        $this->office = $office;
 
         return $this;
     }

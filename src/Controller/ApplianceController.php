@@ -21,7 +21,7 @@ class ApplianceController extends AbstractController
     public function index(ApplianceRepository $applianceRepository): Response
     {
         return $this->render('appliance/index.html.twig', [
-            'appliances' => $applianceRepository->findAll(),
+            'appliances' => $applianceRepository->findByOffice(),
         ]);
     }
 

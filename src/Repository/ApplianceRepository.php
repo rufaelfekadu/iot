@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Appliance;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @method Appliance|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,27 +15,35 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ApplianceRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+
+    /**
+     * @var Security
+     */
+    private $security;
+
+    
+    public function __construct(ManagerRegistry $registry,Security $security)
     {
+        $this->security = $security;
         parent::__construct($registry, Appliance::class);
     }
 
     // /**
     //  * @return Appliance[] Returns an array of Appliance objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findByOffice()
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('a.office = :val')
+            ->setParameter('val', $this->security->getUser()->getOffice())
             ->orderBy('a.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Appliance
