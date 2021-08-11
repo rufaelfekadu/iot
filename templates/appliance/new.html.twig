@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Appliance{% endblock %}
+
+{% block body %}
+    <h1>Create new Appliance</h1>
+
+    {{ include('appliance/_form.html.twig') }}
+
+    <a href="{{ path('appliance_index') }}">back to list</a>
+{% endblock %}

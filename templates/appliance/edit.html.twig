@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Appliance{% endblock %}
+
+{% block body %}
+    <h1>Edit Appliance</h1>
+
+    {{ include('appliance/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('appliance_index') }}">back to list</a>
+
+    {{ include('appliance/_delete_form.html.twig') }}
+{% endblock %}
