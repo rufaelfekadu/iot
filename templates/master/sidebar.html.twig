@@ -79,7 +79,7 @@
 
 
 
-{% if is_granted("ROLE_P_VP") %}
+{# {% if is_granted("ROLE_P_VP") %}
 <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
@@ -100,7 +100,7 @@
             
             </ul>
           </li>
-{% endif %}
+{% endif %} #}
 
 
 
@@ -182,28 +182,34 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            {# <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ path('user_index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>User</p>
                 </a>
               </li>
-
+            
+              <li class="nav-item">
+                <a href="{{ path('appliance_index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Appliance</p>
+                </a>
+              </li>
+             
+              <li class="nav-item">
+                <a href="{{ path('appliance_type_index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Appliance Type</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="{{ path('office_index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Offices</p>
+                  <p>Office</p>
                 </a>
               </li>
-              
-              <li class="nav-item">
-                <a href="{{ path('budget_index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Budget</p>
-                </a>
-              </li>
-              
+            {# 
               <li class="nav-item">
                 <a href="{{ path('mapping_index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -227,7 +233,7 @@
 
 
 
-{% if is_granted("ROLE_P_VP") %}
+{% if is_granted("ROLE_ADMIN") %}
 {% else %}
 <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -240,9 +246,15 @@
             <ul class="nav nav-treeview">
 
               <li class="nav-item">
-                <a href="{{ path('budget_request_index') }}" class="nav-link">
+                <a href="{{ path('appliance_index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Budget Request</p>
+                  <p>Appliance</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ path('change_password',{'id': app.user.id}) }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Change Password</p>
                 </a>
               </li>
 

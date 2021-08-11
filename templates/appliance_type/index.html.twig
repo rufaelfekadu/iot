@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ApplianceType index{% endblock %}
+
+{% block body %}
+    <h1>ApplianceType index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for appliance_type in appliance_types %}
+            <tr>
+                <td>{{ appliance_type.id }}</td>
+                <td>{{ appliance_type.name }}</td>
+                <td>{{ appliance_type.description }}</td>
+                <td>
+                    <a href="{{ path('appliance_type_show', {'id': appliance_type.id}) }}">show</a>
+                    <a href="{{ path('appliance_type_edit', {'id': appliance_type.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('appliance_type_new') }}">Create new</a>
+{% endblock %}

@@ -1,34 +1,112 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %} #}
 
-{% block title %}User{% endblock %}
+{# {% block title %}User{% endblock %}
 
-{% block body %}
-    <h1>User</h1>
+{% block body %} #}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ user.username }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <a href="{{ path('user_index') }}">back to list</a>
+                        
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+    <title>AdminLTE 3 | Dashboard 3</title>
+    
 
-    {{ include('user/_delete_form.html.twig') }}
-{% endblock %}
+    <!-- Font Awesome Icons -->
+    <link
+    rel="stylesheet" href="{{ asset('assets/css/plugins/fontawesome-free/css/all.min.css') }}">
+    <!-- IonIcons -->
+    <link
+    rel="stylesheet" href="{{ asset('assets/css/ionicons.min.css') }}">
+    <!-- Theme style -->
+    <link
+    rel="stylesheet" href="{{ asset('assets/css/dist/css/adminlte.min.css') }}">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition login-page">
+    {% for message in app.flashes('save') %}
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            </button>                
+        {{ message }}
+        </div>
+    {% endfor %}    
+    <div class="login-box">
+        <!-- /.login-logo -->
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a href="../../index2.html" class="h1"><b>Change</b> Password</a>
+            </div>
+            <div class="card-body">
+                {# <p class="login-box-msg">Reset Password</p> #}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+                {{ form_start(form,{'attr': {'role':'form'}}) }}
+                    <div class="input-group mb-3">
+                            {{ form_widget(form.current_password,{'attr':{'class':'form-control', 'placeholder':"Current Password",'type':'password'}}) }}
+                        <div class="help-block with-errors">{{ form_errors(form.current_password) }}</div>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        {{ form_widget(form.new_password,{'attr':{'class':'form-control','placeholder':"New Password",'type':'password','minlength':"8"}}) }}
+                        <div class="help-block with-errors">{{ form_errors(form.new_password) }}</div>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        {{ form_widget(form.repeat_password,{'attr':{'class':'form-control','placeholder':"Re-enter Password",'type':'password'}}) }}
+                        <div class="help-block with-errors">{{ form_errors(form.repeat_password) }}</div>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-block">Change</button>
+                    </div>
+
+                {{ form_end(form) }}
+
+
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+</body>
+
+</html>

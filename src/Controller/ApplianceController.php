@@ -16,10 +16,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class ApplianceController extends AbstractController
 {
     /**
-     * @Route("/", name="appliance_index", methods={"GET"})
+     * @Route("/", name="appliance_index", methods={"GET","POST"})
      */
-    public function index(ApplianceRepository $applianceRepository): Response
+    public function index(ApplianceRepository $applianceRepository,Request $request): Response
     {
+        if($request->request->get('activate')){
+            // dd($request->request->get('activate'));
+            $appliance = $applianceRepository->find($request->request->get('activate'));
+            // dd($appliance->getStatus());
+            $st = $appliance->getStatus();
+            $appliance->setStatus(!$st);
+            $this->getDoctrine()->getManager()->flush();
+
+
+        }
         return $this->render('appliance/index.html.twig', [
             'appliances' => $applianceRepository->findByOffice(),
         ]);
@@ -35,6 +45,7 @@ class ApplianceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $appliance->setStatus(0);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($appliance);
             $entityManager->flush();

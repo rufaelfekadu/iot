@@ -13,7 +13,10 @@ class ApplianceType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('status')
+            ->add('office')
+            ->add('type')
+            ->add('location')
+            
         ;
     }
 

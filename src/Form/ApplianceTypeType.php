@@ -2,29 +2,25 @@
 
 namespace App\Form;
 
-use App\Entity\User;
+use App\Entity\ApplianceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-
-class UserType extends AbstractType
+class ApplianceTypeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName')
-            ->add('lastName')
-            ->add('office')
-            // ->add('password',PasswordType::class,[])
+            ->add('name')
+            ->add('description')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => ApplianceType::class,
         ]);
     }
 }

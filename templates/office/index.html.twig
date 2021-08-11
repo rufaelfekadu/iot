@@ -10,6 +10,7 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Description</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -18,6 +19,7 @@
             <tr>
                 <td>{{ office.id }}</td>
                 <td>{{ office.name }}</td>
+                <td>{{ office.description }}</td>
                 <td>
                     <a href="{{ path('office_show', {'id': office.id}) }}">show</a>
                     <a href="{{ path('office_edit', {'id': office.id}) }}">edit</a>

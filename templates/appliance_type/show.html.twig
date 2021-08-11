@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ApplianceType{% endblock %}
+
+{% block body %}
+    <h1>ApplianceType</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ appliance_type.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ appliance_type.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ appliance_type.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('appliance_type_index') }}">back to list</a>
+
+    <a href="{{ path('appliance_type_edit', {'id': appliance_type.id}) }}">edit</a>
+
+    {{ include('appliance_type/_delete_form.html.twig') }}
+{% endblock %}

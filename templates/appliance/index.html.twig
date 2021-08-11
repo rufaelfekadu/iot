@@ -10,8 +10,13 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Type</th>
+                <th>Location</th>
                 <th>Status</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                {% else %}
                 <th>actions</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -19,10 +24,26 @@
             <tr>
                 <td>{{ appliance.id }}</td>
                 <td>{{ appliance.name }}</td>
-                <td>{{ appliance.status ? 'Yes' : 'No' }}</td>
+                <td>{{ appliance.type }}</td>
+                <td>{{ appliance.location }}</td>
+                <td>{{ appliance.status ? 'ON' : 'OFF' }}</td>
                 <td>
-                    <a href="{{ path('appliance_show', {'id': appliance.id}) }}">show</a>
-                    <a href="{{ path('appliance_edit', {'id': appliance.id}) }}">edit</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    {% else %}
+                    {# <a href="{{ path('appliance_show', {'id': appliance.id}) }}">show</a> #}
+                    <form class="d-inline" method="post">
+                        {# <input type="toggle" name="enable" value="{{appliance.id}}"> #}
+                        
+                        <button class="btn btn-info btn-sm" name="activate" title="activate" value="{{appliance.id}}">
+                            {% if appliance.status %}
+                            <i class="fa fa-times"></i>
+                            {% else %}
+                            <i class="fa fa-check"></i>
+                            {% endif %}
+                        </button>
+                    </form>
+                    {% endif %}
+                    {# <a href="{{ path('appliance_edit', {'id': appliance.id}) }}">edit</a> #}
                 </td>
             </tr>
         {% else %}
@@ -32,6 +53,7 @@
         {% endfor %}
         </tbody>
     </table>
-
+    {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('appliance_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}
