@@ -1,37 +1,153 @@
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Office index{% endblock %}
+{% block title %}office index
+{% endblock %}
+{% block maintitle %}
+	office
+{% endblock %}
 
+
+{% block breadcrumb %}
+
+	<li class="breadcrumb-item active">office</li>
+{% endblock %}
 {% block body %}
-    <h1>Office index</h1>
+	<div class="row">
+		<div class="card col-md">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for office in offices %}
-            <tr>
-                <td>{{ office.id }}</td>
-                <td>{{ office.name }}</td>
-                <td>{{ office.description }}</td>
-                <td>
-                    <a href="{{ path('office_show', {'id': office.id}) }}">show</a>
-                    <a href="{{ path('office_edit', {'id': office.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card card-info collapsed-card">
+							<div class="card-header">
+								<h3 class="card-title">
+									{% if edit  %}Edit
+									{% else %}
+										Add New
+									{% endif %}
+								</h3>
 
-    <a href="{{ path('office_new') }}">Create new</a>
+								<div class="card-tools">
+									<button type="button" class="btn btn-tool " id="collapse" data-card-widget="collapse">
+										<i class="fas fa-plus"></i>
+									</button>
+								</div>
+								<!-- /.card-tools -->
+							</div>
+							<!-- /.card-header -->
+							<div class="card-body">
+								{% if edit  %}
+									{% set button_label = 'Update' %}
+								{% endif %}
+								{{ include('office/_form.html.twig') }}
+
+
+							</div>
+							<!-- /.card-body -->
+						</div>
+					</div>
+
+					<div class="col-md-12">
+						<div class="card ">
+							<div class="card-header">
+								<h3 class="card-title">office List</h3>
+								<div class="card-tools">
+								
+									<form class="form-inline ml-3" >
+										<div class="input-group ">
+											<input class="form-control" autocomplete="off" name="search" type="search" placeholder="Search" aria-label="Search">
+											<div class="input-group-append">
+												<button class=" input-group-text btn btn-navbar " type="submit">
+													<i class="fas fa-search"></i>
+												</button>	
+											</div>
+											
+										</div>
+									</form>
+
+									
+								</div>
+							</div>
+							<div class="card-body">
+
+
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>
+												#
+											</th>
+											{# <th>{{ knp_pagination_sortable(offices, 'officeName', 'p.officename') }}</th> #}
+                                            <th>name</th>
+                                            {# <th>Last name</th> #}
+											<th>Description</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% set i = 1 %}
+										{% for office in offices %}
+											<tr>
+												<td>
+													{{ i }}
+													{% set i = i+1 %}
+												</td>
+												<td>{{ office.name }}</td>
+												<td>{{ office.description }}</td> 
+												<td>
+
+													<form class="d-inline" method="post">
+
+														<input type="hidden" name="edit" value="{{office.id}}">
+														<button class="btn btn-info btn-sm" title="Edit">
+															<i class="fa fa-edit"></i>
+														</button>
+													</form>
+													<form class="d-inline" method="post" action="{{ path('office_delete', {'id': office.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+
+														<input type="hidden" name="_method" value="DELETE">
+														<input
+														type="hidden" name="_token" value="{{ csrf_token('delete' ~ office.id) }}">
+														{#  <button type="button" data-type="confirm" class="btn btn-danger js-sweetalert" title="Delete">#}
+														<button class="btn btn-danger btn-sm" title="Delete">
+															<i class="fa fa-trash"></i>
+														</button>
+													</form>
+												</td>
+
+											</tr>
+										{% else %}
+											<tr>
+												<td colspan="5">no records found</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+								<br>
+								{# {% do offices.setTemplate('@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig') %}
+								<div class="float-right">{{ knp_pagination_render(offices) }}</div> #}
+							</div>
+						</div>
+					</div>
+					<!-- /.card-body -->
+				</div>
+			</div>
+
+		</div>
+		<!-- /.card-body -->
+	</div>
+{% block javascripts %}
+{% if edit %}
+		<script>
+		document.getElementById('collapse').click();
+
+{# 
+			$(function () {
+$('#collapse').trigger('click');
+}) #}
+		</script>
+	{% endif %}
+{% endblock %}
+
 {% endblock %}

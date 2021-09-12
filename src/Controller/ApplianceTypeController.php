@@ -16,13 +16,57 @@ use Symfony\Component\Routing\Annotation\Route;
 class ApplianceTypeController extends AbstractController
 {
     /**
-     * @Route("/", name="appliance_type_index", methods={"GET"})
+     * @Route("/", name="appliance_type_index", methods={"GET","POST"})
      */
-    public function index(ApplianceTypeRepository $applianceTypeRepository): Response
+    public function index(ApplianceTypeRepository $applianceTypeRepository, Request $request): Response
     {
+        if($request->request->get('edit')){
+            $this->denyAccessUnlessGranted("ROLE_ADMIN");
+
+            $id=$request->request->get('edit');
+            $applianceType=$applianceTypeRepository->findOneBy(['id'=>$id]);
+            $form = $this->createForm(applianceTypeType::class, $applianceType);
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($applianceType);
+                $entityManager->flush();
+                return $this->redirectToRoute('appliance_type_index');
+            }
+
+            $data=$applianceTypeRepository->findAll();
+
+            return $this->render('appliance_type/index.html.twig', [
+                'applianceTypes' => $data,
+                'form' => $form->createView(),
+                'edit'=>$id
+            ]);
+
+        }
+        $applianceType = new applianceType();
+        $form = $this->createForm(applianceTypeType::class, $applianceType);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($applianceType);
+            
+            $entityManager->flush();
+
+            return $this->redirectToRoute('appliance_type_index', [], Response::HTTP_SEE_OTHER);
+        }
+        
+        $search = $request->query->get('search');
+        $data=$applianceTypeRepository->findAll();
+
         return $this->render('appliance_type/index.html.twig', [
-            'appliance_types' => $applianceTypeRepository->findAll(),
+            'applianceTypes' => $data,
+            'form' => $form->createView(),
+            'edit' => false
         ]);
+        
     }
 
     /**

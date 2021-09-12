@@ -13,6 +13,7 @@ class OfficeType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('description')
         ;
     }
 

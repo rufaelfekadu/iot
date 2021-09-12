@@ -16,12 +16,53 @@ use Symfony\Component\Routing\Annotation\Route;
 class OfficeController extends AbstractController
 {
     /**
-     * @Route("/", name="office_index", methods={"GET"})
+     * @Route("/", name="office_index", methods={"GET","POST"})
      */
-    public function index(OfficeRepository $officeRepository): Response
+    public function index(OfficeRepository $officeRepository, Request $request): Response
     {
+        if($request->request->get('edit')){
+            $this->denyAccessUnlessGranted("ROLE_ADMIN");
+
+            $id=$request->request->get('edit');
+            $office=$officeRepository->findOneBy(['id'=>$id]);
+            $form = $this->createForm(officeType::class, $office);
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($office);
+                $entityManager->flush();
+                return $this->redirectToRoute('office_index');
+            }
+
+            $data=$officeRepository->findAll();
+
+            return $this->render('office/index.html.twig', [
+                'offices' => $data,
+                'form' => $form->createView(),
+                'edit'=>$id
+            ]);
+
+        }
+        $office = new office();
+        $form = $this->createForm(officeType::class, $office);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($office);
+            
+            $entityManager->flush();
+
+            return $this->redirectToRoute('office_index', [], Response::HTTP_SEE_OTHER);
+        }
+        
+        $search = $request->query->get('search');
+        $data=$officeRepository->findAll();
         return $this->render('office/index.html.twig', [
-            'offices' => $officeRepository->findAll(),
+            'offices' => $data,
+            'form' => $form->createView(),
+            'edit' => false
         ]);
     }
 

@@ -20,6 +20,43 @@ class ApplianceController extends AbstractController
      */
     public function index(ApplianceRepository $applianceRepository,Request $request): Response
     {
+        if($request->request->get('edit')){
+            // $this->denyAccessUnlessGranted("ROLE_ADMIN");
+
+            $id=$request->request->get('edit');
+            $appliance=$applianceRepository->findOneBy(['id'=>$id]);
+            $form = $this->createForm(applianceType::class, $appliance);
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($appliance);
+                $entityManager->flush();
+                return $this->redirectToRoute('appliance_index');
+            }
+
+            $data=$applianceRepository->findAll();
+
+            return $this->render('appliance/index.html.twig', [
+                'appliances' => $data,
+                'form' => $form->createView(),
+                'edit'=>$id
+            ]);
+
+        }
+        $appliance = new appliance();
+        $form = $this->createForm(applianceType::class, $appliance);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($appliance);
+            
+            $entityManager->flush();
+
+            return $this->redirectToRoute('appliance_index', [], Response::HTTP_SEE_OTHER);
+        }
+
         if($request->request->get('activate')){
             // dd($request->request->get('activate'));
             $appliance = $applianceRepository->find($request->request->get('activate'));
@@ -28,11 +65,15 @@ class ApplianceController extends AbstractController
             $appliance->setStatus(!$st);
             $this->getDoctrine()->getManager()->flush();
 
-
         }
+        $search = $request->query->get('search');
+        $data=$applianceRepository->findAll();
         return $this->render('appliance/index.html.twig', [
-            'appliances' => $applianceRepository->findByOffice(),
+            'appliances' => $data,
+            'form' => $form->createView(),
+            'edit' => false
         ]);
+        
     }
 
     /**

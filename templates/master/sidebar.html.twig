@@ -4,175 +4,6 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
-           
-
-
-          {# {% if is_granted("system_setting") %}
-          <li class="nav-item has-treeview ">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-               System Settings
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-           
-             
-               
-              <li class="nav-item">
-                <a href="{{ path('unit_of_measure_index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Unit of Measure</p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="{{ path('department_index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Department</p>
-                </a>
-              </li> 
-              <li class="nav-item">
-                <a href="{{ path('section_index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Section</p>
-                </a>
-              </li> 
-
-              <li class="nav-item">
-                <a href="{{ path('product_index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Product</p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="{{ path('store_index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Store</p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="{{ path('category_index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Category</p>
-                </a>
-              </li>
-
-              <li class="nav-item">
-                <a href="{{ path('customer_index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Customer</p>
-                </a>
-              </li>
-
-
-
-
-             
-            </ul>
-          </li> #}
-
-          {# {% endif %} #}
-
-
-
-{# {% if is_granted("ROLE_P_VP") %}
-<li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-               President/VP
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-
-           
-              <li class="nav-item">
-                <a href="{{ path('report') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Report</p>
-                </a>
-              </li>
-            
-            </ul>
-          </li>
-{% endif %} #}
-
-
-
-
-
-{# <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-               Internal 
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-            {% if is_granted("consumption_request_list") %}
-            <li class="nav-item">
-                <a href="{{ path('consumption_index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Consumption Requests</p>
-                </a>
-              </li>
-            {% endif %}
-            {% if is_granted("consumption_delivery_list") %}
-              <li class="nav-item">
-                <a href="{{ path('consumption_delivery_index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Consumption Delivery</p>
-                </a>
-              </li>
-            {% endif %}
-            {% if is_granted("product_delivery_list") %}
-              <li class="nav-item">
-                <a href="{{ path('product_delivery_index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Product Delivery</p>
-                </a>
-              </li>
-            {% endif %}
-            {% if is_granted("goods_delivery_list") %}  
-              <li class="nav-item">
-                <a href="{{ path('goods_delivery_index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Goods Delivery</p>
-                </a>
-              </li>
-            {% endif %}
-            {% if is_granted("product_delivery_list") %}
-              <li class="nav-item">
-                <a href="{{ path('material_index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Daily Raw Materials</p>
-                </a>
-              </li>
-            {% endif %}
-            {% if is_granted("production_record_list") %}
-              <li class="nav-item">
-                <a href="{{ path('production_report_index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Production Record</p>
-                </a>
-              </li>
-             {% endif %}
-             
-            </ul>
-          </li> #}
-
-
-
-
-
-
-
 {% if is_granted("ROLE_ADMIN") %}
 <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -226,14 +57,7 @@
              
             </ul>
           </li>
-{% endif %}
 
-
-
-
-
-
-{% if is_granted("ROLE_ADMIN") %}
 {% else %}
 <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -263,10 +87,6 @@
             </ul>
           </li>
   {% endif %}
-
-{# {% endif %} #}
-
-
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
