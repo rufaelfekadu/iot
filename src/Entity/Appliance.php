@@ -34,6 +34,7 @@ class Appliance
 
     /**
      * @ORM\ManyToOne(targetEntity=ApplianceType::class, inversedBy="appliances")
+     * @ORM\JoinColumn(name="appiance_type_id", onDelete="SET NULL")
      */
     private $type;
 

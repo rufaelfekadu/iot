@@ -29,6 +29,7 @@ class ApplianceController extends AbstractController
             $form->handleRequest($request);
     
             if ($form->isSubmitted() && $form->isValid()) {
+                $appliance->setStatus(0);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($appliance);
                 $entityManager->flush();
@@ -48,7 +49,7 @@ class ApplianceController extends AbstractController
         $form = $this->createForm(applianceType::class, $appliance);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $appliance->setStatus(0);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($appliance);
             

@@ -31,6 +31,7 @@ class ApplianceType
 
     /**
      * @ORM\OneToMany(targetEntity=Appliance::class, mappedBy="type")
+     * 
      */
     private $appliances;
 
