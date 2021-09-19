@@ -16,6 +16,7 @@ class ApplianceType extends AbstractType
             ->add('office')
             ->add('type')
             ->add('location')
+            ->add('gpioPin')
             
         ;
     }

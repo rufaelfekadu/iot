@@ -81,7 +81,9 @@
 											{# <th>{{ knp_pagination_sortable(appliances, 'applianceName', 'p.appliancename') }}</th> #}
                                             <th>name</th>
                                             <th>Type</th>
+                                            <th>Office</th>
 											<th>location</th>
+											<th>GPIO Pin</th>
 											<th>status</th>
 											<th>Action</th>
 										</tr>
@@ -96,7 +98,9 @@
 												</td>
 												<td>{{ appliance.name }}</td>
 												<td>{{ appliance.type }}</td> 
+												<td>{{ appliance.office }}</td> 
 												<td>{{ appliance.location }}</td> 
+												<td>{{ appliance.gpioPin }}</td> 
 												<td>{{ appliance.status }}</td> 
 												<td>
 

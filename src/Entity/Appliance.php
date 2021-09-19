@@ -43,6 +43,11 @@ class Appliance
      */
     private $location;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $gpioPin;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +109,18 @@ class Appliance
     public function setLocation(?string $location): self
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    public function getGpioPin(): ?int
+    {
+        return $this->gpioPin;
+    }
+
+    public function setGpioPin(int $gpioPin): self
+    {
+        $this->gpioPin = $gpioPin;
 
         return $this;
     }
